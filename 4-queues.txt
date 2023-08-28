@@ -12,17 +12,137 @@ Algorithm: Queue Operations
 10. Call the corresponding function based on the user's choice.
 11. Repeat steps 9-10 until the user chooses to exit.
 
+--------------------------------------------------------------------------------------------------------------
+Here are the individual algorithms for the three queues you have mentioned:
+
+
+* **Linear Queue**
+
+def isFull():
+    return rear == MAX - 1
+
+def isEmpty():
+    return rear == -1
+
+def makeEmpty():
+    rear = -1
+
+def enqueue(data):
+    if isFull():
+        print("Queue is full")
+    else:
+        if rear == -1:
+            front = 0
+        rear += 1
+        queue[rear] = data
+        print("%d added to the queue" % data)
+
+def dequeue():
+    if isEmpty():
+        print("Queue is empty")
+    else:
+        print("%d removed from the queue" % queue[front])
+        front += 1
+
+def display():
+    if isEmpty():
+        print("Queue is empty")
+    else:
+        print("Queue elements are:")
+        for i in range(front, rear + 1):
+            print("%d " % queue[i])
+        print()
 
 
 
+* **Circular Queue**
+
+def isFull():
+    return (front == 0 and rear == MAX - 1) or (front == rear + 1)
+
+def isEmpty():
+    return front == -1
+
+def makeEmpty():
+    front = -1
+    rear = -1
+
+def enqueue(data):
+    if isFull():
+        print("Queue is full")
+    else:
+        if front == -1:
+            front = 0
+        rear = (rear + 1) % MAX
+        queue[rear] = data
+        print("%d added to the queue" % data)
+
+def dequeue():
+    if isEmpty():
+        print("Queue is empty")
+    else:
+        print("%d removed from the queue" % queue[front])
+        if front == rear:
+            front = -1
+            rear = -1
+        else:
+            front = (front + 1) % MAX
+
+def display():
+    if isEmpty():
+        print("Queue is empty")
+    else:
+        print("Queue elements are:")
+        i = front
+        while i != rear:
+            print("%d " % queue[i])
+            i = (i + 1) % MAX
+        print("%d" % queue[rear])
+
+
+
+* **Priority Queue**
+
+def isFull():
+    return rear == MAX - 1
+
+def isEmpty():
+    return rear == -1
+
+def makeEmpty():
+    rear = -1
+
+def enqueue(data):
+    if isFull():
+        print("Queue is full")
+    else:
+        i = rear
+        for i in range(rear, -1, -1):
+            if data > queue[i]:
+                queue[i + 1] = queue[i]
+            else:
+                break
+        queue[i + 1] = data
+        rear += 1
+        print("%d added to the queue" % data)
+
+def dequeue():
+    if isEmpty():
+        print("Queue is empty")
+    else:
+        print("%d removed from the queue" % queue[rear])
+        rear -= 1
+
+def display():
+    if isEmpty():
+        print("Queue is empty")
+    else:
+        print("Queue elements are:")
+        for i in range(rear, -1, -1):
+            print("%d " % queue[i])
+        print()
 
 ----------------------------------------------Linear Queue----------------------------------------------------
-
-
-
-
-
-
 
 #include <stdio.h>
 #define MAX 5
@@ -109,12 +229,6 @@ int main() {
 
 
 ----------------------------------------------Circular Queue----------------------------------------------------
-
-
-
-
-
-
 
 #include <stdio.h>
 #define MAX 5
@@ -209,9 +323,6 @@ int main() {
 
 
 ----------------------------------------------Priority Queue----------------------------------------------------
-
-
-
 
 
 #include <stdio.h>
